@@ -7,7 +7,7 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-
+@EnableCircuitBreaker
 @SpringBootApplication
 @EntityScan("com.huike.order.entity")
 public class RestOrderApplication {

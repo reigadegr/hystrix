@@ -1,6 +1,7 @@
 package com.huike.order.controller;
 
 //import com.huike.order.command.OrderCommand;
+import com.huike.order.command.OrderCommand;
 import com.huike.order.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +20,10 @@ public class OrderController {
 
 	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
 	public Product findById(@PathVariable Long id) {
-		Product product = restTemplate.getForObject("http://127.0.0.1:9011/product/2",Product.class);
-		return product;
+//		Product product = restTemplate.getForObject("http://127.0.0.1:9011/product/2",Product.class);
+//		return product;
+		return new OrderCommand(restTemplate,id).execute();
+
 	}
 
 }

@@ -24,3 +24,10 @@ management:
     web:
       exposure:
         include: '*'
+hystrix:
+ command:
+  default:
+   execution:
+    isolation:
+     thread:
+      timeoutInMilliseconds: 3000 #默认的连接超时时间1秒,若1秒没有返回数据,自动的触发降级逻辑

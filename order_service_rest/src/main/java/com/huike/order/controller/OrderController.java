@@ -3,6 +3,7 @@ package com.huike.order.controller;
 import com.huike.order.entity.Product;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,17 @@ public class OrderController {
 	 */
 
 	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
+	@HystrixCommand(fallbackMethod = "orderFallBack")
 	public Product findById(@PathVariable Long id) {
 	/*	if(id != 1) {
 			throw  new  RuntimeException("服务器异常");
 		}*/
 		return restTemplate.getForObject("http://service-product/product/2",Product.class);
+	}
+	public Product orderFallBack(Long id){
+		Product product = new Product();
+		product.setProductName("使用降级方法");
+		return product;
 	}
 
 
