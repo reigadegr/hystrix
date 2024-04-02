@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name="service-product")
+//@FeignClient(name="service-product")
+@FeignClient(name="service-product",fallback = ProductFeignClientCallBack.class)
 public interface ProductFeignClient {
     /**
      * 配置需要调用的微服务接口

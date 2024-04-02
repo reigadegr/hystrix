@@ -28,6 +28,9 @@ feign:
     config:
       service-product:  #需要调用的服务名称
         loggerLevel: FULL
+  hystrix:
+    enabled: true
+
 logging:
   level:
     com.huike.order.feign.ProductFeignClient: debug

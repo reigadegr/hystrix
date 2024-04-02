@@ -3,6 +3,7 @@ package com.huike.order.controller;
 import com.huike.order.entity.Product;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  *      如果过在@DefaultProperties指定了公共的降级方法
  *      在@HystrixCommand不需要单独指定了
  */
-//@DefaultProperties(defaultFallback = "defaultFallBack")
+@DefaultProperties(defaultFallback = "defaultFallBack")
 public class OrderController {
 
 	@Autowired
@@ -31,7 +32,7 @@ public class OrderController {
 	 */
 
 	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
-	@HystrixCommand(fallbackMethod = "orderFallBack")
+	@HystrixCommand//(fallbackMethod = "orderFallBack")
 	public Product findById(@PathVariable Long id) {
 	/*	if(id != 1) {
 			throw  new  RuntimeException("服务器异常");
@@ -43,6 +44,13 @@ public class OrderController {
 		product.setProductName("使用降级方法");
 		return product;
 	}
+
+	public Product defaultFallBack(){
+		Product product = new Product();
+		product.setProductName("统一的降级方法");
+		return product;
+	}
+
 
 
 }
