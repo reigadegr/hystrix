@@ -34,9 +34,9 @@ public class OrderController {
 	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
 	@HystrixCommand//(fallbackMethod = "orderFallBack")
 	public Product findById(@PathVariable Long id) {
-	/*	if(id != 1) {
+	if(id != 1) {
 			throw  new  RuntimeException("服务器异常");
-		}*/
+		}
 		return restTemplate.getForObject("http://service-product/product/2",Product.class);
 	}
 	public Product orderFallBack(Long id){
